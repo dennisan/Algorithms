@@ -5,6 +5,11 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
+// Quick sort is a divid and concur algorithm the works by recursively arranging the elements of the array arount a pivot
+// such that the elements left of the pivot are less than the pivot value and the elements right of the pivot are greater than
+// the pivot value.  the quicksort has the advantage of sorting the array without requiring additional space. 
+
+// Quick sort runs beteen O(N) and O(N lg N) and requires no additonal space
 
 namespace Quicksort
 {
