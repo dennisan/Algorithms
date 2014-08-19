@@ -6,6 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
+// Merge sort is a recursive algorithm the works by breaking an array into two halves and then merging
+// the two halves back into a sorted array.  Recursion continues until the array has only a single elment.  
+
+// Merge sort runs in O(N lg N) but requires N additional space
+
+
 namespace MergeSort
 {
 	class Program
