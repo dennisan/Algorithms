@@ -9,23 +9,14 @@ namespace BinaryTree
 {
 	public class BinaryTree
 	{
-		private class TreeNode {
-			public int Value;
-			public TreeNode Left;
-			public TreeNode Right;
-
-			public TreeNode (int value)
-			{
-				Value = value;
-			}
-		}
-
-		private TreeNode _Root;
+		////////////////////////////////////
+		// public interface
+		////////////////////////////////////
 
 		public BinaryTree()
 		{
-			_Root = null;
 		}
+		
 		public void Insert(int value)
 		{
 			TreeNode newNode = new TreeNode(value);
@@ -35,24 +26,44 @@ namespace BinaryTree
 			else
 				Insert(_Root, newNode);
 		}
+		
 		public bool Delete(int value)
 		{
 			return false;
 		}
-		public bool SearchBFS(int value)
+		
+		public bool BreathFirstSearch(int value)
 		{
-			Queue<TreeNode> queue = new Queue<TreeNode>();
-			return SearchBFS(_Root, value, queue);
+			return SearchBFS(_Root, value);
 		}
-		public bool SearchDFS(int value)
+
+		public bool DepthFirstSearch(int value)
 		{
 			return SearchDFS(_Root, value);
 		}
+
 		public void Display()
 		{
 			Display(_Root, 0);
 		}
 
+		////////////////////////////////////
+		// private members
+		////////////////////////////////////
+
+		private class TreeNode
+		{
+			public int Value;
+			public TreeNode Left;
+			public TreeNode Right;
+
+			public TreeNode(int value)
+			{
+				Value = value;
+			}
+		}
+
+		private TreeNode _Root = null;
 
 		private TreeNode Insert(TreeNode thisNode, TreeNode newNode)
 		{
@@ -70,8 +81,11 @@ namespace BinaryTree
 			return newNode;
 
 		}
-		private bool SearchBFS(TreeNode thisNode, int value, Queue<TreeNode> queue)
+
+		private bool SearchBFS(TreeNode thisNode, int value)
 		{
+			Queue<TreeNode> queue = new Queue<TreeNode>();
+
 			queue.Enqueue(thisNode);
 
 			while (queue.Count > 0)
@@ -90,6 +104,7 @@ namespace BinaryTree
 
 			return false;		
 		}
+		
 		private bool SearchDFS(TreeNode thisNode, int value)
 		{
 			Console.Write(".");
@@ -111,6 +126,7 @@ namespace BinaryTree
 
 			return false;
 		}
+		
 		private void Display(TreeNode node, int level)
 		{
 			// in order tree traversal
@@ -118,7 +134,7 @@ namespace BinaryTree
 				Display(node.Left, level+1);
 				
 			for (int i=0; i < level; i++)
-				Console.Write(". . .");
+				Console.Write(".");
 			Console.WriteLine(node.Value);
 
 			if (node.Right != null )

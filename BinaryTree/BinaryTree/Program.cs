@@ -18,8 +18,8 @@ namespace BinaryTree
 		private static void LoadRandoms()
 		{
 			// Initialize an array of size ElemCnt;
-			const int ElemCnt = 1000;
-			const int ElemMax = 5000;
+			const int ElemCnt = 100;
+			const int ElemMax = 500;
 
 			BinaryTree Tree = GetRandomTree(ElemCnt, ElemMax);
 			Console.WriteLine(String.Format("Tree Loaded with {0:f0} elements\n", ElemCnt));
@@ -32,7 +32,7 @@ namespace BinaryTree
 				if (string.IsNullOrWhiteSpace(s))
 					break;
 
-				if (Tree.SearchDFS(int.Parse(s)) == true)
+				if (Tree.DepthFirstSearch(int.Parse(s)) == true)
 					Console.WriteLine("\nThe value {0} was found in the tree.\n", s);
 				else
 					Console.WriteLine("\nThe value {0} was not found in the tree.\n", s);
