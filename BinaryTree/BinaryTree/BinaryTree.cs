@@ -16,8 +16,8 @@ namespace BinaryTree
 		public BinaryTree()
 		{
 		}
-		
-		public void Insert(int value)
+
+		public void Insert(IComparable value)
 		{
 			TreeNode newNode = new TreeNode(value);
 
@@ -26,20 +26,24 @@ namespace BinaryTree
 			else
 				Insert(_Root, newNode);
 		}
-		
-		public bool Delete(int value)
+
+		public bool Delete(IComparable value)
 		{
 			return false;
 		}
-		
-		public bool BreathFirstSearch(int value)
+
+		public bool BreathFirstSearch(IComparable value)
 		{
 			return SearchBFS(_Root, value);
 		}
 
-		public bool DepthFirstSearch(int value)
+		public bool DepthFirstSearch(IComparable value)
 		{
 			return SearchDFS(_Root, value);
+		}
+		public TreeNode ConvertToOrderedList()
+		{
+			return ConvertToOrderedList(_Root);
 		}
 
 		public void Display()
@@ -51,13 +55,13 @@ namespace BinaryTree
 		// private members
 		////////////////////////////////////
 
-		private class TreeNode
+		public class TreeNode
 		{
-			public int Value;
+			public IComparable Value;
 			public TreeNode Left;
 			public TreeNode Right;
 
-			public TreeNode(int value)
+			public TreeNode(IComparable value)
 			{
 				Value = value;
 			}
@@ -67,7 +71,7 @@ namespace BinaryTree
 
 		private TreeNode Insert(TreeNode thisNode, TreeNode newNode)
 		{
-			if (newNode.Value < thisNode.Value)
+			if (newNode.Value.CompareTo(thisNode.Value) < 0)
 				if (thisNode.Left == null)
 					thisNode.Left = newNode;
 				else
@@ -82,7 +86,7 @@ namespace BinaryTree
 
 		}
 
-		private bool SearchBFS(TreeNode thisNode, int value)
+		private bool SearchBFS(TreeNode thisNode, IComparable value)
 		{
 			Queue<TreeNode> queue = new Queue<TreeNode>();
 
@@ -93,7 +97,7 @@ namespace BinaryTree
 				TreeNode node = queue.Dequeue();
 
 				Console.Write(".");
-				if (node.Value == value)
+				if (node.Value.CompareTo(value) == 0)
 					return true;
 				else
 				{
@@ -104,15 +108,15 @@ namespace BinaryTree
 
 			return false;		
 		}
-		
-		private bool SearchDFS(TreeNode thisNode, int value)
+
+		private bool SearchDFS(TreeNode thisNode, IComparable value)
 		{
 			Console.Write(".");
-			if (thisNode.Value == value)
+			if (thisNode.Value.CompareTo(value) == 0)
 				return true;
 			else
 			{
-				if (value < thisNode.Value) 
+				if (value.CompareTo(thisNode.Value) < 0) 
 				{
 					if (thisNode.Left != null)
 						return SearchDFS(thisNode.Left, value);
@@ -126,7 +130,52 @@ namespace BinaryTree
 
 			return false;
 		}
-		
+
+
+		private TreeNode ConvertToOrderedList(TreeNode thisNode)
+		{
+			// Converts the binary tree to a ordered linked list and returns the head of the list
+			// Reuse the TreeNode Left and Right value for Prev and Next value in linked list
+
+			TreeNode HeadNode;
+			TreeNode LeftTailNode;
+			TreeNode RghtHeadNode;
+
+			if (thisNode.Left != null)
+			{
+				// the left list becomes the head
+				HeadNode = ConvertToOrderedList(thisNode.Left);
+				HeadNode.Left = null;
+
+				// Find the tail of the left list
+				LeftTailNode = HeadNode;
+				while (LeftTailNode.Right != null)
+					LeftTailNode = LeftTailNode.Right;
+
+				// Add thisNode to the tail of the left list
+				LeftTailNode.Right = thisNode;
+				thisNode.Left = LeftTailNode;
+			}
+			else
+				// thisNode becomes head if left is null
+				HeadNode = thisNode;
+
+			if (thisNode.Right != null)
+			{
+				// find the head of the right list
+				RghtHeadNode = ConvertToOrderedList(thisNode.Right);
+
+				// Add this node to the head of the right list
+				thisNode.Right = RghtHeadNode;
+				RghtHeadNode.Left = thisNode;
+			}
+			else
+				// thisNode becomes tail if right list is null
+				thisNode.Right = null;
+
+			return HeadNode;
+		}
+
 		private void Display(TreeNode node, int level)
 		{
 			// in order tree traversal
@@ -134,7 +183,7 @@ namespace BinaryTree
 				Display(node.Left, level+1);
 				
 			for (int i=0; i < level; i++)
-				Console.Write(".");
+				Console.Write("+---");
 			Console.WriteLine(node.Value);
 
 			if (node.Right != null )

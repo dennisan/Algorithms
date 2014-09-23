@@ -17,12 +17,8 @@ namespace BinaryTree
 
 		private static void LoadRandoms()
 		{
-			// Initialize an array of size ElemCnt;
-			const int ElemCnt = 100;
-			const int ElemMax = 500;
-
-			BinaryTree Tree = GetRandomTree(ElemCnt, ElemMax);
-			Console.WriteLine(String.Format("Tree Loaded with {0:f0} elements\n", ElemCnt));
+			BinaryTree Tree = GetRandomTree(500, 999);
+			
 			Tree.Display();
 
 			while (true)
@@ -32,14 +28,45 @@ namespace BinaryTree
 				if (string.IsNullOrWhiteSpace(s))
 					break;
 
-				if (Tree.DepthFirstSearch(int.Parse(s)) == true)
-					Console.WriteLine("\nThe value {0} was found in the tree.\n", s);
+				if (s == "c" || s == "C")
+				{ 
+					BinaryTree.TreeNode Node = Tree.ConvertToOrderedList();
+
+					if (Node != null)
+					{
+						Console.Write("\nTraversing List in ascending order\n");
+
+						Console.Write(Node.Value);
+
+						while (Node.Right != null)
+						{
+							Node = Node.Right;
+							Console.Write(", ");
+							Console.Write(Node.Value);
+						}
+
+						Console.Write("\n\nTraversing List in descending order\n");
+
+						Console.Write(Node.Value);
+
+						while (Node.Left != null)
+						{
+							Node = Node.Left;
+							Console.Write(", ");
+							Console.Write(Node.Value);
+						}
+
+						Console.Write("\n\n");
+					}
+				}
 				else
-					Console.WriteLine("\nThe value {0} was not found in the tree.\n", s);
-
-				//Tree.Display();
+				{
+					if (Tree.DepthFirstSearch(int.Parse(s)) == true)
+						Console.WriteLine("\nThe value {0} was found in the tree.\n", s);
+					else
+						Console.WriteLine("\nThe value {0} was not found in the tree.\n", s);
+				}
 			}
-
 		}
 
 		private static BinaryTree GetRandomTree(int count, int max)
