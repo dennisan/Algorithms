@@ -8,6 +8,11 @@ namespace SortLib
 {
 	public class InsertionSort
 	{
+		// Insertion sort is a brute force algorithm the works by travesing the elements of the array swappng the pivot element into position
+		// on the left side of the array
+
+		// Insertion sort runs beteen O(N) and O(N^2) and requires no additonal space
+
 		public static int[] Sort(int[] arrayToSort)
 		{
 			int comparisons = 1;
