@@ -48,7 +48,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SortLib\SortLib\SortLib.csproj">
+    <ProjectReference Include="..\SortLib\SortLib.csproj">
       <Project>{243a6972-1111-4510-a5fe-add6ff728085}</Project>
       <Name>SortLib</Name>
     </ProjectReference>

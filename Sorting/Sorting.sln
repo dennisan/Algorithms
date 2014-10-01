@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortLib", "..\SortLib\SortLib\SortLib.csproj", "{243A6972-1111-4510-A5FE-ADD6FF728085}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortTest", "SortTest\SortTest.csproj", "{C9245ED6-16DA-42AD-8539-4A474AA64994}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortLib", "SortLib\SortLib.csproj", "{243A6972-1111-4510-A5FE-ADD6FF728085}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{243A6972-1111-4510-A5FE-ADD6FF728085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{243A6972-1111-4510-A5FE-ADD6FF728085}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{243A6972-1111-4510-A5FE-ADD6FF728085}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{243A6972-1111-4510-A5FE-ADD6FF728085}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C9245ED6-16DA-42AD-8539-4A474AA64994}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C9245ED6-16DA-42AD-8539-4A474AA64994}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9245ED6-16DA-42AD-8539-4A474AA64994}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9245ED6-16DA-42AD-8539-4A474AA64994}.Release|Any CPU.Build.0 = Release|Any CPU
+		{243A6972-1111-4510-A5FE-ADD6FF728085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{243A6972-1111-4510-A5FE-ADD6FF728085}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{243A6972-1111-4510-A5FE-ADD6FF728085}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{243A6972-1111-4510-A5FE-ADD6FF728085}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
