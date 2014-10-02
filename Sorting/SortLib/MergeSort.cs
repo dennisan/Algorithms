@@ -13,48 +13,48 @@ namespace SortLib
 
 	public class MergeSort
 	{
-		public static int[] Sort(int[] arrayToSort)
+		public static T[] Sort<T>(T[] arrayToSort) where T : IComparable
 		{
-			int len = arrayToSort.Length;
-			int LLen = len / 2;
-			int RLen = (len + 1) / 2;
+			int Len = arrayToSort.Length;
+			int LLen = Len / 2;
+			int RLen = (Len + 1) / 2;
 
 			// base case with array of len 1
-			if (len == 1) return arrayToSort;
+			if (Len == 1) 
+				return arrayToSort;
 
 			// Split array into left and right halves
-			int[] LArray = new int[LLen];
+			T[] LArray = new T[LLen];
 			Array.Copy(arrayToSort, LArray, LLen);  // Buffer.BlockCopy() is slightly faster than Array.Copy()
 
-			int[] RArray = new int[RLen];
+			T[] RArray = new T[RLen];
 			Array.Copy(arrayToSort, LLen, RArray, 0, RLen);
 
 			// Recurse on both halves
 			LArray = Sort(LArray);
 			RArray = Sort(RArray);
 
-			// Merge the result into SortedArray
-			int l = 0, r = 0, i = 0;
-			int[] SortedArray = new int[len];
-
-			while (l < LLen && r < RLen)
-			{
-				if (LArray[l] <= RArray[r])
-					SortedArray[i++] = LArray[l++];
-				else
-					SortedArray[i++] = RArray[r++];
-			}
-
-			// pick up remaining elements in either array
-			while (l < LLen)
-				SortedArray[i++] = LArray[l++];
-
-			while (r < RLen)
-				SortedArray[i++] = RArray[r++];
-
-			return SortedArray;
+			return Merge(LArray, RArray);
 		}
 
+		private static T[] Merge<T>(T[] LArray, T[] RArray) where T : IComparable
+		{
+			int Len = LArray.Length + RArray.Length;
+			T[] SortedArray = new T[Len];
 
+			for (int i = 0, l = 0, r = 0; i < Len ; i++)
+			{
+				if (l >= LArray.Length)				// Left array is empty
+					SortedArray[i] = RArray[r++];
+				else if (r >= RArray.Length)		// right array is empty
+					SortedArray[i] = LArray[l++];
+				else if (LArray[l].CompareTo(RArray[r]) < 0)			
+					SortedArray[i] = LArray[l++];
+				else
+					SortedArray[i] = RArray[r++];
+			}
+			
+			return SortedArray;
+		}
 	}
 }

@@ -13,23 +13,24 @@ namespace SortLib
 	// Quick sort runs beteen O(N) and O(N lg N) and requires no additonal space
 
 
-	public class QuickSort {
+	public class QuickSort 
+	{
 
-		public static int[] Sort(int[] arrayToSort)
+		public static T[] Sort<T>(T[] arrayToSort) where T : IComparable 
 		{
 			return Sort(arrayToSort, 0, arrayToSort.Length-1);
 		}
 
-		private static int[] Sort(int[] elements, int left, int right)
+		private static T[] Sort<T>(T[] elements, int left, int right) where T : IComparable 
 		{
 			int i = left, j = right;
 
-			int centerpivot = (right - left > 2) ? elements[((left + right) / 2)] : elements[left];
-			int leftpivot = elements[left];
-			int rightpivot = elements[right];
-			int medianpivot = GetMedian(leftpivot, centerpivot, rightpivot);
+			T centerpivot = (right - left > 2) ? elements[((left + right) / 2)] : elements[left];
+			T leftpivot = elements[left];
+			T rightpivot = elements[right];
+			T medianpivot = GetMedian(leftpivot, centerpivot, rightpivot);
 
-			int pivot = medianpivot;
+			T pivot = medianpivot;
 
 			while (i <= j)
 			{
@@ -46,7 +47,7 @@ namespace SortLib
 				if (i <= j)
 				{
 					// Swap
-					int tmp = elements[i];
+					T tmp = elements[i];
 					elements[i] = elements[j];
 					elements[j] = tmp;
 
@@ -71,15 +72,15 @@ namespace SortLib
 		}
 
 
-		private static int GetMedian(int a, int b, int c)
+		private static T GetMedian<T>(T a, T b, T c) where T : IComparable 
 		{
-			if (a < b && b < c)
+			if (a.CompareTo(b) < 0 && b.CompareTo(c) < 0)
 				return b;
-			if (c < b && b < a)
+			if (c.CompareTo(b) < 0 && b.CompareTo(a) < 0)
 				return b;
-			if (b < a && a < c)
+			if (b.CompareTo(a) < 0 && a.CompareTo(c) < 0)
 				return a;
-			if (c < a && a < b)
+			if (c.CompareTo(a) < 0 && a.CompareTo(b) < 0)
 				return a;
 			else
 				return c;

@@ -13,7 +13,7 @@ namespace SortLib
 
 		// Insertion sort runs beteen O(N) and O(N^2) and requires no additonal space
 
-		public static int[] Sort(int[] arrayToSort)
+		public static T[] Sort<T>(T[] arrayToSort) where T : IComparable 
 		{
 			int comparisons = 1;
 
@@ -22,10 +22,10 @@ namespace SortLib
 
 			for (int i = 1; i < arrayToSort.Length; i++)
 			{
-				for (int j = i; j > 0 && arrayToSort[j] < arrayToSort[j - 1]; j--)
+				for (int j = i; j > 0 && arrayToSort[j].CompareTo(arrayToSort[j - 1]) < 0; j--)
 				{
 					comparisons++;
-					int temp = arrayToSort[j - 1];
+					T temp = arrayToSort[j - 1];
 					arrayToSort[j - 1] = arrayToSort[j];
 					arrayToSort[j] = temp;
 				}

@@ -32,7 +32,7 @@ namespace Sorting
 			while (true)
 			{
 				int[] ArrayToSort = GetRandomArray(ElemCnt, ElemMax);
-				int[] SortedArray;
+				int[] SortedArray = null;
 
 				Console.Write("\nChoose sort algorithm (I)nsertion, (M)erge, (Q)uick:  ");
 				string SortType = Console.ReadLine();
@@ -48,27 +48,32 @@ namespace Sorting
 				switch (SortType)
 				{
 					case "I":
+					case "i":
 						SortName = "Insertion";
 						SortedArray = SortLib.InsertionSort.Sort(ArrayToSort);
 						break;
 
 					case "M":
+					case "m":
 						SortName = "Merge";
 						SortedArray = SortLib.MergeSort.Sort(ArrayToSort);
 						break;
 
 					case "Q":
+					case "q":
 						SortName = "Quick";
 						SortedArray = SortLib.QuickSort.Sort(ArrayToSort);
-						break;
-
-					default:
-						SortName = "Unknown";
 						break;
 				}
 
 				Timer.Stop();
 				Console.WriteLine(String.Format("{0} sort complete in {1:n5} Seconds\n\n", SortName, Timer.ElapsedMilliseconds/1000.00));
+
+				for (int i = 1; i < SortedArray.Length; i++)
+				{
+					if (SortedArray[i] < SortedArray[i-1])
+						throw new InvalidDataException();
+				}
 			}
 		}
 
