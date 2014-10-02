@@ -11,6 +11,16 @@ namespace LinkedLists
 		private ListItem Head;
 		private ListItem Tail;
 
+		public class ListItem
+		{
+			public int value;
+			public ListItem next;
+			public ListItem(int val)
+			{
+				value = val;
+			}
+		}
+
 		public List()
 		{
 			Head = new ListItem(int.MinValue);
