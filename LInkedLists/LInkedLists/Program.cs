@@ -11,57 +11,78 @@ namespace LinkedLists
 	{
 		static void Main(string[] args)
 		{
-			LoadRandoms();
+			TestList();
 		}
 
 
-		private static void LoadRandoms()
+		private static void TestList()
 		{
 			// Initialize an array of size ElemCnt;
-			const int ElemCnt = 60;
-			const int ElemMax = 1000;
 
+			Console.Write("How many items do you want in the list: ");
+			var Size = Console.ReadLine();
+			if (string.IsNullOrWhiteSpace(Size))
+				return;
 
-			// Time Sort using watch1
-			Stopwatch watch1 = new Stopwatch();
-
-			watch1.Start();
-			List LinkedList = GetRandomList(ElemCnt, ElemMax);
-			watch1.Stop();
-			Console.WriteLine(String.Format("List Loaded in {0:f3} sec\n", watch1.ElapsedMilliseconds / 1000.0));
-			LinkedList.Dump();
+			int ElemCnt = int.Parse(Size);
+			int ElemMax = ElemCnt;
+			
+			List<int> LinkedList = GetRandomList(ElemCnt, ElemMax);
 
 			while (true)
 			{
-				Console.Write("\nEnter a value to delete from the list... ");
+				DumpList(LinkedList);
+
+				Console.Write("\nEnter +/- followed by the value to add/delete from the list: ");
 				var s = Console.ReadLine();
-				if (string.IsNullOrWhiteSpace(s))
-					break; 
+				if (s.Length == 0 || (s[0] != '-' && s[0] != '+'))
+					break;
 
-				if (LinkedList.Delete(int.Parse(s)) == true)
-					Console.WriteLine("The value {0} was deleted from the list.\n", s);
-				else
-					Console.WriteLine("The value {0} was not found in the list.\n", s);
-
-				LinkedList.Dump();
+				int Val = int.Parse(s.Substring(1));
+				if (s.StartsWith("-")) 
+				{
+					if (LinkedList.Delete(Val) == true)
+						Console.WriteLine("The value {0} was deleted from the list.\n", Val);
+					else
+						Console.WriteLine("The value {0} was not found in the list.\n", Val);
+				}
+				else if (s.StartsWith("+")) 
+				{
+					LinkedList.Insert(Val);
+					Console.WriteLine("The value {0} was inserted in the list.\n", Val);
+				}
 			}
-
 		}
 
 
-		private static List GetRandomList(int count, int max)
+		private static List<int> GetRandomList(int count, int max)
 		{
-			List SortedList = new List();
+			List<int> SortedList = new List<int>();
 
 			// Initialize the items to random numbers
-			Console.WriteLine(String.Format("Initializing list with {0:n0} random values", count));
 			Random RGen = new Random(DateTime.Now.Millisecond);
+
 			for (int i = 0; i < count; i++)
 				SortedList.Insert(RGen.Next(max));
 
 			return SortedList;
 		}
 
+
+		private static void DumpList(List<int> list)
+		{
+			int x = 0;
+
+			Console.WriteLine("==================================================");
+			foreach (int i in list)
+			{ 
+				Console.Write("{0,4},", i);
+
+				if (++x % 10 == 0)
+					Console.WriteLine("");
+			}
+			Console.WriteLine("\n==================================================");
+		}
 	}
 }
 
